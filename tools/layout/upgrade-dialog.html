@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <style>
+    html, body { margin: 0; background: #0b0c14; color: #e5d2a6; font-family: sans-serif; }
+    .level-up-overlay {
+      position: absolute; inset: 0; display: flex; flex-direction: column;
+      align-items: stretch; justify-content: flex-start; gap: 8px; overflow: auto;
+      padding: 8px; box-sizing: border-box;
+    }
+    .level-up-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; width: min(720px, 100%); margin: 0 auto; }
+    .level-card { min-height: 72px; padding: 10px 12px; border: 1px solid #343a73; }
+    h2 { margin: 0; font-size: 1.25rem; }
+    .ghost-btn { min-height: 44px; }
+    @media (max-width: 520px) { .level-up-cards { grid-template-columns: 1fr; } }
+    @media (max-height: 420px) and (min-width: 640px) {
+      .level-up-cards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .level-card { min-height: 0; padding: 8px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="level-up-overlay" id="overlay">
+    <h2 id="heading">Choose your path</h2>
+    <p id="hint">1 / 2 / 3 or tap</p>
+    <div class="level-up-cards">
+      <button class="level-card" id="c0">One</button>
+      <button class="level-card" id="c1">Two</button>
+      <button class="level-card" id="c2">Three</button>
+    </div>
+    <button class="ghost-btn" id="reroll">Reroll</button>
+  </div>
+  <pre id="out"></pre>
+  <script>
+    const ids = ['heading', 'hint', 'c0', 'c1', 'c2', 'reroll'];
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    const overlay = document.getElementById('overlay');
+    const items = ids.map((id) => {
+      const el = document.getElementById(id);
+      const r = el.getBoundingClientRect();
+      const inView = r.top >= -1 && r.bottom <= vh + 1 && r.left >= -1 && r.right <= vw + 1;
+      const inScroll = r.bottom <= overlay.scrollHeight + 1 && r.top >= -1;
+      return { id, inView, top: Math.round(r.top), bottom: Math.round(r.bottom), left: Math.round(r.left), right: Math.round(r.right) };
+    });
+    const reachable = items.every((i) => i.inView || (i.bottom <= overlay.scrollHeight && i.top >= 0));
+    document.getElementById('out').textContent = JSON.stringify({ vw, vh, scrollH: overlay.scrollHeight, reachable, items });
+  </script>
+</body>
+</html>

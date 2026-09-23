@@ -1,0 +1,21 @@
+{
+  "name": "@rakshak/tools-validate",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "validate:content": "tsx src/validate-content.ts",
+    "validate:licenses": "tsx src/validate-licenses.ts",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@rakshak/assets": "workspace:*",
+    "@rakshak/game-data": "workspace:*",
+    "@rakshak/shared": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "22",
+    "tsx": "^4.20.5",
+    "typescript": "~5.8.3"
+  }
+}

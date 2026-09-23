@@ -1,10 +1,11 @@
 # RAKSHAK Master Specification
 
-**Status:** Pre-development source of truth  
+**Status:** Implementation `1.0.0` — see `docs/IMPLEMENTATION_STATUS.md` and `docs/FINAL_HANDOFF.md`  
 **Product:** RAKSHAK — Survive the Night  
 **Package/application ID:** `roy.ij.rakshak`  
 **Version:** `1.0.0`  
-**Research date:** 2026-09-22
+**Research date:** 2026-09-22  
+**Implementation date:** 2026-09-23
 
 > If implementation conflicts with `RAKSHAK_MASTER_SPEC.md`, the Master Spec wins unless the developer explicitly changes the specification.
 
@@ -76,6 +77,7 @@ Packages must not import from `apps/*`. `game-core` must not import React, Expo,
 - Pools cover enemies, projectiles, pickups, particles, and damage labels. No per-frame allocations in measured hot paths.
 - Update order is specified and tested: input → movement → spawn → AI → weapons → projectile motion → broad phase → hits/status → deaths/drops → XP/level queue → boss/run state → event emission → snapshot.
 - A simultaneous lethal hit and level-up resolves lethal damage first; pending level choices do not revive the player unless an explicit revive effect exists.
+- If the player and final boss both reach zero health in the same simulation tick, the final boss defeat counts as a victory after both death sequences resolve. This is a deliberate dramatic exception, not a general revive.
 - Pause freezes simulation ticks and timed gameplay effects; UI animation and audio fades may continue on a separate presentation clock.
 
 ## 6. Content contract

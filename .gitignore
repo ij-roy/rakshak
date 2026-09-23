@@ -1,0 +1,37 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Builds
+dist/
+.next/
+out/
+build/
+.turbo/
+*.tsbuildinfo
+
+# Expo / native
+apps/mobile/.expo/
+apps/mobile/android/
+apps/mobile/ios/
+*.jks
+*.keystore
+credentials.json
+google-services.json
+
+# Env / secrets
+.env
+.env.*
+!.env.example
+EAS_PROJECT_ID
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# Logs / coverage
+*.log
+coverage/
